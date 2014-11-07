@@ -48,7 +48,7 @@ int funcionario(int argc, char **argv)
  {
     case 1:
     {   
-         system("cls");
+      
          vetor = malloc(num * sizeof(struct funcionario));
          while(1)
          {
@@ -81,7 +81,7 @@ int funcionario(int argc, char **argv)
     break;
     case 2:
     {
-         system("cls");
+         
          printf("\nEntre com a ID do funcionario:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -111,7 +111,7 @@ int funcionario(int argc, char **argv)
          return 0;
     break;
   }
-  system("cls");
+ 
   for(contador = 0; contador < num; contador++)
     {
       printf("\n\n\n ID: %d - NOME: %s - FUNCAO: %s - CODIGO: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].funcao, vetor[contador].codigo);
