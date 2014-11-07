@@ -1,0 +1,125 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct mesa preenche();
+
+
+
+struct mesa {
+	int id;
+    char nome[30], pessoas[2], mesa[2];
+};
+
+struct mesa preenche(int contador)
+{
+    struct mesa cliente;
+	
+    contador=contador+1;
+    cliente.id=contador;
+    setbuf (stdin, NULL);
+    printf("\nNome do cliente:");
+	scanf("%[^\n]s", cliente.nome);
+	setbuf (stdin, NULL);
+	printf("\nNumero de pessoas na mesa:");
+	scanf("%[^\n]s", cliente.pessoas);
+	setbuf (stdin, NULL);
+	printf("\nNumero da mesa:");
+	scanf("%[^\n]s", cliente.mesa);
+	setbuf (stdin, NULL);
+    return cliente;
+}
+
+int clientes(int argc, char **argv)
+{	
+ int num=0, contador, resposta, aux=0, procurar=0, opcao=0, editar=0;
+ struct mesa *vetor;
+ struct mesa *auxvetor;
+ 
+ do{
+ system("cls");
+ printf("Escolha uma opcao:");
+ printf("\n1 - Cadastrar clientes.");
+ printf("\n2 - Editar um cliente cadastrado.");
+ printf("\n3 - Excluir um cliente cadastrado.");
+ printf("\n\n\nEntre com outro valor para sair. \n");
+ scanf("%d", &opcao);
+ switch (opcao)
+ {
+    case 1:
+    {   
+         system("cls");
+         vetor = malloc(num * sizeof(struct mesa));
+         while(1)
+         {
+           for(contador = aux; contador<num; contador++)
+           {
+              vetor[contador] = preenche(contador);
+           }
+           printf("\nDeseja cadastrar mais clientes ? \n Digite 1 para Sim ou 2 para Nao! \n");
+           scanf("%d", &resposta);
+           if(resposta==1)
+           {
+              aux = num;
+              num = num + 1;
+              auxvetor = malloc(aux * sizeof(struct mesa));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 auxvetor[contador] = vetor[contador];
+              }
+              vetor = malloc(num * sizeof(struct mesa));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 vetor[contador] = auxvetor[contador];
+              }
+            }
+            else 
+            //sair quando a resposta for nao
+            { break; }
+         }
+    }
+    break;
+    case 2:
+    {
+         system("cls");
+         printf("\nEntre com a ID do cliente:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador] = preenche(contador);
+            }
+         }
+    }
+    break;     
+    case 3:
+    {
+         system("cls");
+         printf("\nEntre com a ID do cliente:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador].id = 0;
+            }
+         }
+    }
+    break;
+    case 4:
+         return 0;
+    break;
+  }
+  system("cls");
+  for(contador = 0; contador < num; contador++)
+    {
+      printf("\n\n\n ID: %d - NOME: %s - NUMERO DE PESSOAS: %s - MESA: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].pessoas, vetor[contador].mesa);
+    }
+ 
+ printf("\n\n\nDeseja retornar ao menu de clientes ? \n Digite 1 para Sim ou 2 para Nao! \n");
+ scanf("%d", &opcao);
+ }while(opcao==1);
+    free(vetor);
+    free(auxvetor);
+}
