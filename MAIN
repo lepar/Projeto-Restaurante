@@ -1,0 +1,396 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+struct funcionario preenche();
+struct produto preenche();
+struct mesa preenche();
+
+struct produto {
+	int id;
+    char nome[25], descricao[100], preco[6];
+};
+
+struct mesa {
+	int id;
+    char nome[30], pessoas[2], mesa[2];
+};
+
+struct funcionario {
+	int id;
+    char nome[25], funcao[20], codigo[6];
+};
+
+struct funcionario preenche(int contador)
+{
+    struct funcionario cliente;
+	
+    contador=contador+1;
+    cliente.id=contador;
+    setbuf (stdin, NULL);
+    printf("\nNome do funcionario:");
+	scanf("%[^\n]s", cliente.nome);
+	setbuf (stdin, NULL);
+	printf("\nFuncao do funcionario:");
+	scanf("%[^\n]s", cliente.funcao);
+	setbuf (stdin, NULL);
+	printf("\nCodigo do funcionario:");
+	scanf("%[^\n]s", cliente.codigo);
+	setbuf (stdin, NULL);
+    return cliente;
+}
+
+struct produto preenche(int contador)
+{
+    struct produto cliente;
+	
+    contador=contador+1;
+    cliente.id=contador;
+    setbuf (stdin, NULL);
+    printf("\nNome do produto:");
+	scanf("%[^\n]s", cliente.nome);
+	setbuf (stdin, NULL);
+	printf("\nDescricao do produto:");
+	scanf("%[^\n]s", cliente.descricao);
+	setbuf (stdin, NULL);
+	printf("\nInforme o preco:");
+	scanf("%[^\n]s", cliente.preco);
+	setbuf (stdin, NULL);
+    return cliente;
+}
+
+struct mesa preenche(int contador)
+{
+    struct mesa cliente;
+	
+    contador=contador+1;
+    cliente.id=contador;
+    setbuf (stdin, NULL);
+    printf("\nNome do cliente:");
+	scanf("%[^\n]s", cliente.nome);
+	setbuf (stdin, NULL);
+	printf("\nNumero de pessoas na mesa:");
+	scanf("%[^\n]s", cliente.pessoas);
+	setbuf (stdin, NULL);
+	printf("\nNumero da mesa:");
+	scanf("%[^\n]s", cliente.mesa);
+	setbuf (stdin, NULL);
+    return cliente;
+}
+
+int main ()	 {
+	
+    int opcprincipal;
+    printf("\nSelecione uma opcao abaixo:");
+    printf("\n1 - Cadastro de Produtos");
+    printf("\n2 - Cadastro de Clientes");
+    printf("\n3 - Cadastro de Funcionarios");
+    printf("\n4 - Sair.");
+    scanf("%d", &opcprincipal);
+    do
+    {
+        if(opcprincipal > 4)
+        {
+            printf("\nDigite uma opcao entre 1 e 4:");
+            scanf("%d", &opcprincipal);
+        }
+    }while(opcprincipal > 4);
+    
+    switch (opcprincipal)
+    {
+        case 1:
+           produtos();
+            break;
+        case 2:
+            clientes();
+            break;
+        case 3:
+            funcionario();
+            break;
+        case 4:
+            exit(0);
+            break;
+    }
+}
+
+int produtos(int argc, char **argv)
+{	
+ int num=0, contador, resposta, aux=0, procurar=0, opcao=0, editar=0;
+ struct produto *vetor;
+ struct produto *auxvetor;
+ 
+ do{
+ system("cls");
+ printf("Escolha uma opcao:");
+ printf("\n1 - Cadastrar produtos.");
+ printf("\n2 - Editar um produto cadastrado.");
+ printf("\n3 - Excluir um produto cadastrado.");
+ printf("\n\n\nEntre com outro valor para sair. \n");
+ scanf("%d", &opcao);
+ switch (opcao)
+ {
+    case 1:
+    {   
+         system("cls");
+         vetor = malloc(num * sizeof(struct produto));
+         while(1)
+         {
+           for(contador = aux; contador<num; contador++)
+           {
+              vetor[contador] = preenche(contador);
+           }
+           printf("\nDeseja cadastrar mais produtos ? \n Digite 1 para Sim ou 2 para Nao! \n");
+           scanf("%d", &resposta);
+           if(resposta==1)
+           {
+              aux = num;
+              num = num + 1;
+              auxvetor = malloc(aux * sizeof(struct produto));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 auxvetor[contador] = vetor[contador];
+              }
+              vetor = malloc(num * sizeof(struct produto));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 vetor[contador] = auxvetor[contador];
+              }
+            }
+            else 
+            //sair quando a resposta for nao
+            { break; }
+         }
+    }
+    break;
+    case 2:
+    {
+         system("cls");
+         printf("\nEntre com a ID do produto:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador] = preenche(contador);
+            }
+         }
+    }
+    break;     
+    case 3:
+    {
+         system("cls");
+         printf("\nEntre com a ID do produto:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador].id = 0;
+            }
+         }
+    }
+    break;
+    case 4:
+         return 0;
+    break;
+  }
+  system("cls");
+  for(contador = 0; contador < num; contador++)
+    {
+      printf("\n\n\n ID: %d - NOME: %s - DESCRICAO: %s - PRECO: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].descricao, vetor[contador].preco);
+    }
+ 
+ printf("\n\n\nDeseja retornar ao menu de produtos ? \n Digite 1 para Sim ou 2 para Nao! \n");
+ scanf("%d", &opcao);
+ }while(opcao==1);
+    free(vetor);
+    free(auxvetor);
+}
+
+int clientes(int argc, char **argv)
+{	
+ int num=0, contador, resposta, aux=0, procurar=0, opcao=0, editar=0;
+ struct mesa *vetor;
+ struct mesa *auxvetor;
+ 
+ do{
+ system("cls");
+ printf("Escolha uma opcao:");
+ printf("\n1 - Cadastrar clientes.");
+ printf("\n2 - Editar um cliente cadastrado.");
+ printf("\n3 - Excluir um cliente cadastrado.");
+ printf("\n\n\nEntre com outro valor para sair. \n");
+ scanf("%d", &opcao);
+ switch (opcao)
+ {
+    case 1:
+    {   
+         system("cls");
+         vetor = malloc(num * sizeof(struct mesa));
+         while(1)
+         {
+           for(contador = aux; contador<num; contador++)
+           {
+              vetor[contador] = preenche(contador);
+           }
+           printf("\nDeseja cadastrar mais clientes ? \n Digite 1 para Sim ou 2 para Nao! \n");
+           scanf("%d", &resposta);
+           if(resposta==1)
+           {
+              aux = num;
+              num = num + 1;
+              auxvetor = malloc(aux * sizeof(struct mesa));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 auxvetor[contador] = vetor[contador];
+              }
+              vetor = malloc(num * sizeof(struct mesa));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 vetor[contador] = auxvetor[contador];
+              }
+            }
+            else 
+            //sair quando a resposta for nao
+            { break; }
+         }
+    }
+    break;
+    case 2:
+    {
+         system("cls");
+         printf("\nEntre com a ID do cliente:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador] = preenche(contador);
+            }
+         }
+    }
+    break;     
+    case 3:
+    {
+         system("cls");
+         printf("\nEntre com a ID do cliente:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador].id = 0;
+            }
+         }
+    }
+    break;
+    case 4:
+         return 0;
+    break;
+  }
+  system("cls");
+  for(contador = 0; contador < num; contador++)
+    {
+      printf("\n\n\n ID: %d - NOME: %s - NUMERO DE PESSOAS: %s - MESA: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].pessoas, vetor[contador].mesa);
+    }
+ 
+ printf("\n\n\nDeseja retornar ao menu de clientes ? \n Digite 1 para Sim ou 2 para Nao! \n");
+ scanf("%d", &opcao);
+ }while(opcao==1);
+    free(vetor);
+    free(auxvetor);
+}
+
+int funcionario(int argc, char **argv)
+{	
+ int num=0, contador, resposta, aux=0, procurar=0, opcao=0, editar=0;
+ struct funcionario *vetor;
+ struct funcionario *auxvetor;
+ 
+ do{
+ system("cls");
+ printf("Escolha uma opcao:");
+ printf("\n1 - Cadastrar funcionarios.");
+ printf("\n2 - Editar um funcionario cadastrado.");
+ printf("\n3 - Excluir um funcionario cadastrado.");
+ printf("\n\n\nEntre com outro valor para sair. \n");
+ scanf("%d", &opcao);
+ switch (opcao)
+ {
+    case 1:
+    {   
+         system("cls");
+         vetor = malloc(num * sizeof(struct funcionario));
+         while(1)
+         {
+           for(contador = aux; contador<num; contador++)
+           {
+              vetor[contador] = preenche(contador);
+           }
+           printf("\nDeseja cadastrar mais funcionarios ? \n Digite 1 para Sim ou 2 para Nao! \n");
+           scanf("%d", &resposta);
+           if(resposta==1)
+           {
+              aux = num;
+              num = num + 1;
+              auxvetor = malloc(aux * sizeof(struct funcionario));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 auxvetor[contador] = vetor[contador];
+              }
+              vetor = malloc(num * sizeof(struct funcionario));
+              for(contador = 0; contador < aux; contador++)
+              {
+                 vetor[contador] = auxvetor[contador];
+              }
+            }
+            else 
+            //sair quando a resposta for nao
+            { break; }
+         }
+    }
+    break;
+    case 2:
+    {
+         system("cls");
+         printf("\nEntre com a ID do funcionario:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador] = preenche(contador);
+            }
+         }
+    }
+    break;     
+    case 3:
+    {
+         system("cls");
+         printf("\nEntre com a ID do funcionario:");
+         scanf("%d", &editar);
+         for(contador=0;contador<num;contador++)
+         {
+            if(vetor[contador].id == editar)
+            {
+               vetor[contador].id = 0;
+            }
+         }
+    }
+    break;
+    case 4:
+         return 0;
+    break;
+  }
+  system("cls");
+  for(contador = 0; contador < num; contador++)
+    {
+      printf("\n\n\n ID: %d - NOME: %s - FUNCAO: %s - CODIGO: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].funcao, vetor[contador].codigo);
+    }
+ 
+ printf("\n\n\nDeseja retornar ao menu de funcionarios ? \n Digite 1 para Sim ou 2 para Nao! \n");
+ scanf("%d", &opcao);
+ }while(opcao==1);
+    free(vetor);
+    free(auxvetor);
+}
