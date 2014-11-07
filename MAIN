@@ -120,7 +120,7 @@ int produtos(int argc, char **argv)
  struct produto *auxvetor;
  
  do{
- system("cls");
+ 
  printf("Escolha uma opcao:");
  printf("\n1 - Cadastrar produtos.");
  printf("\n2 - Editar um produto cadastrado.");
@@ -131,7 +131,7 @@ int produtos(int argc, char **argv)
  {
     case 1:
     {   
-         system("cls");
+       
          vetor = malloc(num * sizeof(struct produto));
          while(1)
          {
@@ -164,7 +164,7 @@ int produtos(int argc, char **argv)
     break;
     case 2:
     {
-         system("cls");
+         
          printf("\nEntre com a ID do produto:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -178,7 +178,7 @@ int produtos(int argc, char **argv)
     break;     
     case 3:
     {
-         system("cls");
+         
          printf("\nEntre com a ID do produto:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -194,7 +194,7 @@ int produtos(int argc, char **argv)
          return 0;
     break;
   }
-  system("cls");
+  
   for(contador = 0; contador < num; contador++)
     {
       printf("\n\n\n ID: %d - NOME: %s - DESCRICAO: %s - PRECO: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].descricao, vetor[contador].preco);
@@ -214,7 +214,7 @@ int clientes(int argc, char **argv)
  struct mesa *auxvetor;
  
  do{
- system("cls");
+ 
  printf("Escolha uma opcao:");
  printf("\n1 - Cadastrar clientes.");
  printf("\n2 - Editar um cliente cadastrado.");
@@ -225,7 +225,7 @@ int clientes(int argc, char **argv)
  {
     case 1:
     {   
-         system("cls");
+        
          vetor = malloc(num * sizeof(struct mesa));
          while(1)
          {
@@ -258,7 +258,7 @@ int clientes(int argc, char **argv)
     break;
     case 2:
     {
-         system("cls");
+         
          printf("\nEntre com a ID do cliente:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -272,7 +272,7 @@ int clientes(int argc, char **argv)
     break;     
     case 3:
     {
-         system("cls");
+         
          printf("\nEntre com a ID do cliente:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -288,7 +288,7 @@ int clientes(int argc, char **argv)
          return 0;
     break;
   }
-  system("cls");
+
   for(contador = 0; contador < num; contador++)
     {
       printf("\n\n\n ID: %d - NOME: %s - NUMERO DE PESSOAS: %s - MESA: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].pessoas, vetor[contador].mesa);
@@ -319,7 +319,7 @@ int funcionario(int argc, char **argv)
  {
     case 1:
     {   
-         system("cls");
+        
          vetor = malloc(num * sizeof(struct funcionario));
          while(1)
          {
@@ -352,7 +352,7 @@ int funcionario(int argc, char **argv)
     break;
     case 2:
     {
-         system("cls");
+         
          printf("\nEntre com a ID do funcionario:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -366,7 +366,7 @@ int funcionario(int argc, char **argv)
     break;     
     case 3:
     {
-         system("cls");
+        
          printf("\nEntre com a ID do funcionario:");
          scanf("%d", &editar);
          for(contador=0;contador<num;contador++)
@@ -382,7 +382,7 @@ int funcionario(int argc, char **argv)
          return 0;
     break;
   }
-  system("cls");
+  
   for(contador = 0; contador < num; contador++)
     {
       printf("\n\n\n ID: %d - NOME: %s - FUNCAO: %s - CODIGO: %s\n", vetor[contador].id, vetor[contador].nome, vetor[contador].funcao, vetor[contador].codigo);
